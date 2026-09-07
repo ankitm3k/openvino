@@ -84,6 +84,12 @@ TEST(ONNXFeConvertException, exception_if_matmulnbits_weight_prepacked_unsupport
                     testing::HasSubstr("weight_prepacked != 0"));
 }
 
+TEST(ONNXFeConvertException, exception_if_matmulnbits_reordered_layout_with_group_idx_unsupported) {
+    OV_EXPECT_THROW(convert_model("com.microsoft/matmulnbits_reordered_group_idx_unsupported.onnx"),
+                    ov::AssertFailure,
+                    testing::HasSubstr("reordered B layout"));
+}
+
 TEST(ONNXFeConvertException, exception_if_scan_num_scan_inputs_exceeds_body_inputs) {
     OV_EXPECT_THROW(convert_model("scan15_num_scan_inputs_exceeds_body_inputs.onnx"),
                     ov::frontend::OpConversionFailure,
